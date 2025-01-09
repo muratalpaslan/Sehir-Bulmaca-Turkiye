@@ -1,2 +1,3 @@
-# Sehir-Bulmaca-Turkiye
-Harita üzerindeki şehirleri sorup şıklardan doğru cevabı bulmanızı istiyor.3 hak var ve her doğru 10 puan
+# Türkiye Şehir Bulmaca Oyunu 
+Harita üzerindeki şehirleri sorup şıklardan doğru cevabı bulmanızı istiyen responsive yapılmış bir tür şehir bulma oyunu.
+Oyuncunun 3 hakkı var her doğru yanıt 10 puan ve tüm iller sorulduğunda puanınızı gösterip oyun bitiyor.
