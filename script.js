@@ -1,87 +1,87 @@
 document.addEventListener('DOMContentLoaded', function() {
     const cities = [
-    { name: 'Adana', id: 'TR-01' },
-    { name: 'Adıyaman', id: 'TR-02' },
-    { name: 'Afyonkarahisar', id: 'TR-03' },
-    { name: 'Ağrı', id: 'TR-04' },
-    { name: 'Amasya', id: 'TR-05' },
-    { name: 'Ankara', id: 'TR-06' },
-    { name: 'Antalya', id: 'TR-07' },
-    { name: 'Artvin', id: 'TR-08' },
-    { name: 'Aydın', id: 'TR-09' },
-    { name: 'Balıkesir', id: 'TR-10' },
-    { name: 'Bilecik', id: 'TR-11' },
-    { name: 'Bingöl', id: 'TR-12' },
-    { name: 'Bitlis', id: 'TR-13' },
-    { name: 'Bolu', id: 'TR-14' },
-    { name: 'Burdur', id: 'TR-15' },
-    { name: 'Bursa', id: 'TR-16' },
-    { name: 'Çanakkale', id: 'TR-17' },
-    { name: 'Çankırı', id: 'TR-18' },
-    { name: 'Çorum', id: 'TR-19' },
-    { name: 'Denizli', id: 'TR-20' },
-    { name: 'Diyarbakır', id: 'TR-21' },
-    { name: 'Edirne', id: 'TR-22' },
-    { name: 'Elazığ', id: 'TR-23' },
-    { name: 'Erzincan', id: 'TR-24' },
-    { name: 'Erzurum', id: 'TR-25' },
-    { name: 'Eskişehir', id: 'TR-26' },
-    { name: 'Gaziantep', id: 'TR-27' },
-    { name: 'Giresun', id: 'TR-28' },
-    { name: 'Gümüşhane', id: 'TR-29' },
-    { name: 'Hakkari', id: 'TR-30' },
-    { name: 'Hatay', id: 'TR-31' },
-    { name: 'Isparta', id: 'TR-32' },
-    { name: 'Mersin', id: 'TR-33' },
-    { name: 'İstanbul', id: 'TR-34' },
-    { name: 'İzmir', id: 'TR-35' },
-    { name: 'Kars', id: 'TR-36' },
-    { name: 'Kastamonu', id: 'TR-37' },
-    { name: 'Kayseri', id: 'TR-38' },
-    { name: 'Kırklareli', id: 'TR-39' },
-    { name: 'Kırşehir', id: 'TR-40' },
-    { name: 'Kocaeli', id: 'TR-41' },
-    { name: 'Konya', id: 'TR-42' },
-    { name: 'Kütahya', id: 'TR-43' },
-    { name: 'Malatya', id: 'TR-44' },
-    { name: 'Manisa', id: 'TR-45' },
-    { name: 'Kahramanmaraş', id: 'TR-46' },
-    { name: 'Mardin', id: 'TR-47' },
-    { name: 'Muğla', id: 'TR-48' },
-    { name: 'Muş', id: 'TR-49' },
-    { name: 'Nevşehir', id: 'TR-50' },
-    { name: 'Niğde', id: 'TR-51' },
-    { name: 'Ordu', id: 'TR-52' },
-    { name: 'Rize', id: 'TR-53' },
-    { name: 'Sakarya', id: 'TR-54' },
-    { name: 'Samsun', id: 'TR-55' },
-    { name: 'Siirt', id: 'TR-56' },
-    { name: 'Sinop', id: 'TR-57' },
-    { name: 'Sivas', id: 'TR-58' },
-    { name: 'Tekirdağ', id: 'TR-59' },
-    { name: 'Tokat', id: 'TR-60' },
-    { name: 'Trabzon', id: 'TR-61' },
-    { name: 'Tunceli', id: 'TR-62' },
-    { name: 'Şanlıurfa', id: 'TR-63' },
-    { name: 'Uşak', id: 'TR-64' },
-    { name: 'Van', id: 'TR-65' },
-    { name: 'Yozgat', id: 'TR-66' },
-    { name: 'Zonguldak', id: 'TR-67' },
-    { name: 'Aksaray', id: 'TR-68' },
-    { name: 'Bayburt', id: 'TR-69' },
-    { name: 'Karaman', id: 'TR-70' },
-    { name: 'Kırıkkale', id: 'TR-71' },
-    { name: 'Batman', id: 'TR-72' },
-    { name: 'Şırnak', id: 'TR-73' },
-    { name: 'Bartın', id: 'TR-74' },
-    { name: 'Ardahan', id: 'TR-75' },
-    { name: 'Iğdır', id: 'TR-76' },
-    { name: 'Yalova', id: 'TR-77' },
-    { name: 'Karabük', id: 'TR-78' },
-    { name: 'Kilis', id: 'TR-79' },
-    { name: 'Osmaniye', id: 'TR-80' },
-    { name: 'Düzce', id: 'TR-81' }
-];
+        { name: 'Adana', id: 'TR-01', lat: 37.0000, lng: 35.3213 },
+        { name: 'Adıyaman', id: 'TR-02', lat: 37.7648, lng: 38.2786 },
+        { name: 'Afyonkarahisar', id: 'TR-03', lat: 38.7507, lng: 30.5567 },
+        { name: 'Ağrı', id: 'TR-04', lat: 39.7191, lng: 43.0503 },
+        { name: 'Amasya', id: 'TR-05', lat: 40.6499, lng: 35.8353 },
+        { name: 'Ankara', id: 'TR-06', lat: 39.9208, lng: 32.8541 },
+        { name: 'Antalya', id: 'TR-07', lat: 36.8841, lng: 30.7056 },
+        { name: 'Artvin', id: 'TR-08', lat: 41.1828, lng: 41.8183 },
+        { name: 'Aydın', id: 'TR-09', lat: 37.8560, lng: 27.8416 },
+        { name: 'Balıkesir', id: 'TR-10', lat: 39.6484, lng: 27.8826 },
+        { name: 'Bilecik', id: 'TR-11', lat: 40.1451, lng: 29.9795 },
+        { name: 'Bingöl', id: 'TR-12', lat: 38.8854, lng: 40.4980 },
+        { name: 'Bitlis', id: 'TR-13', lat: 38.4006, lng: 42.1095 },
+        { name: 'Bolu', id: 'TR-14', lat: 40.7318, lng: 31.6082 },
+        { name: 'Burdur', id: 'TR-15', lat: 37.7765, lng: 30.2903 },
+        { name: 'Bursa', id: 'TR-16', lat: 40.1885, lng: 29.0610 },
+        { name: 'Çanakkale', id: 'TR-17', lat: 40.1553, lng: 26.4142 },
+        { name: 'Çankırı', id: 'TR-18', lat: 40.6013, lng: 33.6134 },
+        { name: 'Çorum', id: 'TR-19', lat: 40.5506, lng: 34.9556 },
+        { name: 'Denizli', id: 'TR-20', lat: 37.7765, lng: 29.0864 },
+        { name: 'Diyarbakır', id: 'TR-21', lat: 37.9144, lng: 40.2306 },
+        { name: 'Edirne', id: 'TR-22', lat: 41.6818, lng: 26.5623 },
+        { name: 'Elazığ', id: 'TR-23', lat: 38.6810, lng: 39.2264 },
+        { name: 'Erzincan', id: 'TR-24', lat: 39.7500, lng: 39.5000 },
+        { name: 'Erzurum', id: 'TR-25', lat: 39.9000, lng: 41.2700 },
+        { name: 'Eskişehir', id: 'TR-26', lat: 39.7700, lng: 30.5200 },
+        { name: 'Gaziantep', id: 'TR-27', lat: 37.0597, lng: 37.3828 },
+        { name: 'Giresun', id: 'TR-28', lat: 40.9000, lng: 38.3800 },
+        { name: 'Gümüşhane', id: 'TR-29', lat: 40.4500, lng: 39.5500 },
+        { name: 'Hakkari', id: 'TR-30', lat: 37.5800, lng: 43.0500 },
+        { name: 'Hatay', id: 'TR-31', lat: 36.2000, lng: 36.1300 },
+        { name: 'Isparta', id: 'TR-32', lat: 37.7667, lng: 30.5500 },
+        { name: 'Mersin', id: 'TR-33', lat: 36.8000, lng: 34.6300 },
+        { name: 'İstanbul', id: 'TR-34', lat: 41.0050, lng: 28.9784 },
+        { name: 'İzmir', id: 'TR-35', lat: 38.4237, lng: 27.1428 },
+        { name: 'Kars', id: 'TR-36', lat: 40.6000, lng: 43.0800 },
+        { name: 'Kastamonu', id: 'TR-37', lat: 41.3700, lng: 33.7800 },
+        { name: 'Kayseri', id: 'TR-38', lat: 38.7300, lng: 35.4800 },
+        { name: 'Kırklareli', id: 'TR-39', lat: 41.7300, lng: 27.2200 },
+        { name: 'Kırşehir', id: 'TR-40', lat: 39.1500, lng: 35.7500 },
+        { name: 'Kocaeli', id: 'TR-41', lat: 40.7500, lng: 29.9300 },
+        { name: 'Konya', id: 'TR-42', lat: 37.8700, lng: 32.4800 },
+        { name: 'Kütahya', id: 'TR-43', lat: 39.3800, lng: 29.9800 },
+        { name: 'Malatya', id: 'TR-44', lat: 38.3500, lng: 38.3000 },
+        { name: 'Manisa', id: 'TR-45', lat: 38.6100, lng: 27.4300 },
+        { name: 'Kahramanmaraş', id: 'TR-46', lat: 37.1800, lng: 37.2000 },
+        { name: 'Mardin', id: 'TR-47', lat: 37.3000, lng: 40.7300 },
+        { name: 'Muğla', id: 'TR-48', lat: 37.2000, lng: 28.3500 },
+        { name: 'Muş', id: 'TR-49', lat: 38.7500, lng: 41.6800 },
+        { name: 'Nevşehir', id: 'TR-50', lat: 38.6300, lng: 34.7200 },
+        { name: 'Niğde', id: 'TR-51', lat: 37.9500, lng: 35.8300 },
+        { name: 'Ordu', id: 'TR-52', lat: 40.9700, lng: 37.8800 },
+        { name: 'Rize', id: 'TR-53', lat: 41.0200, lng: 40.5200 },
+        { name: 'Sakarya', id: 'TR-54', lat: 40.7500, lng: 30.4000 },
+        { name: 'Samsun', id: 'TR-55', lat: 41.2800, lng: 36.3300 },
+        { name: 'Siirt', id: 'TR-56', lat: 37.9200, lng: 41.9200 },
+        { name: 'Sinop', id: 'TR-57', lat: 42.0300, lng: 35.1500 },
+        { name: 'Sivas', id: 'TR-58', lat: 39.7500, lng: 37.0300 },
+        { name: 'Tekirdağ', id: 'TR-59', lat: 40.9700, lng: 27.5200 },
+        { name: 'Tokat', id: 'TR-60', lat: 40.3000, lng: 36.5700 },
+        { name: 'Trabzon', id: 'TR-61', lat: 41.0000, lng: 39.7200 },
+        { name: 'Tunceli', id: 'TR-62', lat: 39.1000, lng: 39.5700 },
+        { name: 'Şanlıurfa', id: 'TR-63', lat: 37.1700, lng: 38.7900 },
+        { name: 'Uşak', id: 'TR-64', lat: 38.6800, lng: 29.4100 },
+        { name: 'Van', id: 'TR-65', lat: 38.4900, lng: 43.3800 },
+        { name: 'Yozgat', id: 'TR-66', lat: 39.8200, lng: 34.8200 },
+        { name: 'Zonguldak', id: 'TR-67', lat: 41.4300, lng: 31.8000 },
+        { name: 'Aksaray', id: 'TR-68', lat: 38.3700, lng: 34.0300 },
+        { name: 'Bayburt', id: 'TR-69', lat: 40.2500, lng: 40.2000 },
+        { name: 'Karaman', id: 'TR-70', lat: 37.1700, lng: 33.2200 },
+        { name: 'Kırıkkale', id: 'TR-71', lat: 39.8500, lng: 32.5000 },
+        { name: 'Batman', id: 'TR-72', lat: 37.8700, lng: 41.1200 },
+        { name: 'Şırnak', id: 'TR-73', lat: 37.5200, lng: 42.1000 },
+        { name: 'Bartın', id: 'TR-74', lat: 41.6300, lng: 40.3300 },
+        { name: 'Ardahan', id: 'TR-75', lat: 41.8000, lng: 42.1700 },
+        { name: 'Iğdır', id: 'TR-76', lat: 39.9200, lng: 43.0700 },
+        { name: 'Yalova', id: 'TR-77', lat: 40.6500, lng: 29.2700 },
+        { name: 'Karabük', id: 'TR-78', lat: 41.2000, lng: 31.5700 },
+        { name: 'Kilis', id: 'TR-79', lat: 36.7200, lng: 37.1200 },
+        { name: 'Osmaniye', id: 'TR-80', lat: 37.0700, lng: 36.2500 },
+        { name: 'Düzce', id: 'TR-81', lat: 40.8500, lng: 31.1700 }
+    ];
 
     let currentCity;
     let lives = 3;
@@ -132,6 +132,18 @@ document.addEventListener('DOMContentLoaded', function() {
         startTimer(); // Timer'ı başlat
     }
 
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371; // Dünya'nın yarıçapı (km)
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = 
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return R * c;
+    }
+
     function createOptions() {
         const optionsContainer = document.getElementById('options');
         optionsContainer.innerHTML = '';
@@ -140,13 +152,29 @@ document.addEventListener('DOMContentLoaded', function() {
         gridContainer.className = 'options-grid';
         optionsContainer.appendChild(gridContainer);
 
+        const currentLat = currentCity.lat;
+        const currentLng = currentCity.lng;
+
+        let sortedCities = cities
+            .filter(city => city.name !== currentCity.name)
+            .map(city => ({
+                ...city,
+                distance: calculateDistance(currentLat, currentLng, city.lat, city.lng)
+            }))
+            .sort((a, b) => a.distance - b.distance);
+
+        let nearestCities = sortedCities.slice(0, 10);
         let options = [currentCity.name];
+
         while (options.length < 4) {
-            let randomCity = cities[Math.floor(Math.random() * cities.length)].name;
-            if (!options.includes(randomCity)) {
-                options.push(randomCity);
+            let randomIndex = Math.floor(Math.random() * nearestCities.length);
+            let selectedCity = nearestCities[randomIndex].name;
+            
+            if (!options.includes(selectedCity)) {
+                options.push(selectedCity);
             }
         }
+
         options.sort(() => Math.random() - 0.5);
 
         options.forEach(option => {
