@@ -1,4 +1,40 @@
+//Mainpage ekliyorum    
 document.addEventListener('DOMContentLoaded', function() {
+    const usernameScreen = document.getElementById('username-screen');
+    const gameScreen = document.getElementById('game-screen');
+    const usernameInput = document.getElementById('username-input');
+    const startGameBtn = document.getElementById('start-game-btn');
+    const playerNameSpan = document.getElementById('player-name');
+    
+    let username = '';
+
+    // Username input validation
+    usernameInput.addEventListener('input', function() {
+        const isValid = this.value.trim().length >= 3;
+        startGameBtn.disabled = !isValid;
+        
+        // Remove special characters and limit length
+        this.value = this.value.replace(/[^a-zA-Z0-9ğüşıöçĞÜŞİÖÇ ]/g, '').slice(0, 20);
+    });
+
+    // Start game button click handler
+    startGameBtn.addEventListener('click', function() {
+        username = usernameInput.value.trim();
+        if (username.length >= 3) {
+            usernameScreen.style.display = 'none';
+            gameScreen.style.display = 'block';
+            playerNameSpan.textContent = username;
+            initGame();
+        }
+    });
+
+    // Enter key handler for username input
+    usernameInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && !startGameBtn.disabled) {
+            startGameBtn.click();
+        }
+    });
+//Mainpage ekliyorum        
     const cities = [
         { name: 'Adana', id: 'TR-01', lat: 37.0000, lng: 35.3213 },
         { name: 'Adıyaman', id: 'TR-02', lat: 37.7648, lng: 38.2786 },
@@ -265,6 +301,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function endGame(completed) {
         clearInterval(timerInterval);
         const resultDiv = document.getElementById('result');
+        const celebrationContainer = document.getElementById('celebration-container');
+        const finalScoreMessage = document.getElementById('final-score-message');
+        const celebrationText = document.getElementById('celebration-text');
         let finalMessage = '';
 
         if (completed) {
@@ -293,6 +332,17 @@ document.addEventListener('DOMContentLoaded', function() {
             finalMessage = `Oyun bitti! Puanınız: ${score}`;
         }
 
+        // Celebration text'i puana göre göster/gizle
+        if (score >= 100) {
+            celebrationText.style.display = 'block';
+            celebrationText.textContent = 'Tebrikler! 100 puanı geçtiniz! 🎉';
+        } else {
+            celebrationText.style.display = 'none';
+        }
+
+        finalScoreMessage.textContent = finalMessage;
+        celebrationContainer.style.display = 'block';
+        
         resultDiv.textContent = finalMessage;
         resultDiv.style.color = completed ? 'green' : 'red';
         
@@ -328,6 +378,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('next-btn').addEventListener('click', nextQuestion);
     document.getElementById('restart-btn').addEventListener('click', () => {
+        document.getElementById('restart-btn').style.display = 'none';
+        initGame();
+    });
+
+    document.getElementById('play-again-btn').addEventListener('click', function() {
+        document.getElementById('celebration-container').style.display = 'none';
         document.getElementById('restart-btn').style.display = 'none';
         initGame();
     });
