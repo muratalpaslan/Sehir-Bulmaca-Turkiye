@@ -1,5 +1,30 @@
-# Türkiye Şehir Bulmaca Oyunu 
-Harita üzerindeki şehirleri sorup şıklardan doğru cevabı bulmanızı isteyen responsive yapılmış bir tür şehir bulmaca oyunu.
-Oyuncunun 3 hakkı var her doğru yanıt 10 puan ve doğru yanıtlar arttıkça artan bir puan sistemi var ve tüm iller sorulduğunda ya da hakkınız bittiğinde puanınızı gösterip oyun bitiyor.
-Hiç hatasız oyunu bitirebilenler olursa da combo bonusu ekliyor.
-Soru başına 15 saniye süre ve süre bonusuna sahip.
+# 🌍 Şehir Bulmaca: Türkiye Edisyonu
+
+## 🎮 Oyun Hakkında
+Türkiye'nin şehirlerini eğlenceli ve interaktif bir şekilde keşfetmenizi sağlayan bir bulmaca oyunu! Her turda Türkiye haritasındaki şehirleri tahmin ederek coğrafi bilginizi test edin.
+
+✨ Özellikler
+🗺️ Türkiye'nin tüm şehirlerini içerir
+🧩 Zorlu ve eğlenceli bulmaca mekaniği
+📊 Performans takibi ve skor sistemi
+🌈 Kullanıcı dostu arayüz
+🚀 Kurulum
+
+🎯 Nasıl Oynanır?
+Ekranda boş bir Türkiye haritası görüntülenir
+Şehir isimlerini doğru koordinatlara yerleştirin
+Süre ve doğruluk puanınızı maksimize edin
+🤝 Katkıda Bulunma
+Katkılarınızı bekliyoruz!
+
+Fork edin
+Kendi branch'inizi oluşturun (git checkout -b feature/AmazingFeature)
+Değişikliklerinizi commit edin (git commit -m 'Harika bir özellik ekledim')
+Branch'inizi push edin (git push origin feature/AmazingFeature)
+Bir Pull Request açın
+
+
+📸 Ekran Görüntüleri
+(Ekran görüntüleri eklenecek)
+
+🌟 Oyuna katkıda bulunmak ve geliştirmek için hazırsanız, hemen başlayın!
