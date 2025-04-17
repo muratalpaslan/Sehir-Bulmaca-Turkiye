@@ -4,28 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Türkiye Şehir Tahmin Oyunu</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Türkiye Şehir Tahmin Oyunu</h1>
-        <div id="username-screen" class="username-screen">
-         <div class="username-container">
-             <h2>Hoş Geldiniz!</h2>
-             <p>Oyuna başlamak için kullanıcı adınızı girin:</p>
-             <input type="text" id="username-input" placeholder="Kullanıcı Adı" maxlength="20">
-             <button id="start-game-btn">Oyuna Başla</button>
-         </div>
-        </div>
-        <div id="game-screen" style="display: none;">
-         <div class="game-info">
-               <p>Oyuncu: <span id="player-name"></span></p>
-               <p>Kalan Hak: <span id="lives">3</span></p>
-               <p>Süre: <span id="timer">15</span></p>
-               <p>Puan: <span id="score">0</span></p>
-         </div>
+    <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-6 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl font-bold text-center text-indigo-900 mb-8 font-poppins">Türkiye Şehir Tahmin Oyunu</h1>
+            <div id="username-screen" class="flex justify-center items-center min-h-[400px]">
+                <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md transform transition-all hover:scale-105">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Hoş Geldiniz!</h2>
+                    <p class="text-gray-600 mb-6">Oyuna başlamak için kullanıcı adınızı girin:</p>
+                    <input type="text" id="username-input" placeholder="Kullanıcı Adı" maxlength="20" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent mb-6 transition-all">
+                    <button id="start-game-btn" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 transform transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed">Oyuna Başla</button>
+                </div>
+            </div>
+            <div id="game-screen" style="display: none;" class="bg-white rounded-2xl shadow-xl p-6">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 text-center">
+                    <div class="bg-indigo-50 p-3 rounded-lg">
+                        <p class="text-sm text-gray-600">Oyuncu</p>
+                        <p class="font-semibold text-indigo-900" id="player-name"></p>
+                    </div>
+                    <div class="bg-indigo-50 p-3 rounded-lg">
+                        <p class="text-sm text-gray-600">Kalan Hak</p>
+                        <p class="font-semibold text-indigo-900" id="lives">3</p>
+                    </div>
+                    <div class="bg-indigo-50 p-3 rounded-lg">
+                        <p class="text-sm text-gray-600">Süre</p>
+                        <p class="font-semibold text-indigo-900" id="timer">15</p>
+                    </div>
+                    <div class="bg-indigo-50 p-3 rounded-lg">
+                        <p class="text-sm text-gray-600">Puan</p>
+                        <p class="font-semibold text-indigo-900" id="score">0</p>
+                    </div>
+                </div>
          <div class="game-area">
                <div id="map-container">
                   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -380,4 +395,4 @@
     </div>
     <script src="script.js"></script>
 </body>
-</html> 
+</html>

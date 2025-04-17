@@ -5,20 +5,24 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8fafc;
+    min-height: 100vh;
 }
 
 .container {
     max-width: 1200px;
-    margin: 20px auto;
+    margin: 0 auto;
     padding: 20px;
     text-align: center;
 }
 
 h1 {
-    color: #333;
-    margin-bottom: 20px;
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
 }
 /* mainpage oluşturuyorum */
 .username-screen {
@@ -277,10 +281,36 @@ path.selected {
 
 .options-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.option-btn {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1e293b;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.option-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f8fafc;
+}
+
+.option-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
 }
 
 /* Doğru/yanlış cevap animasyonu */
@@ -453,4 +483,4 @@ path.wrong {
 #timer.warning {
     color: #e74c3c;
     animation: pulse 1s infinite;
-} 
+}
