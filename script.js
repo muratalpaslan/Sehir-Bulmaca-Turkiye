@@ -1,10 +1,53 @@
 //Mainpage ekliyorum    
+// Ses efektleri için değişkenler
+const sounds = {
+    background: new Audio('sounds/background.mp3'),
+    correct: new Audio('sounds/success.mp3'),
+    wrong: new Audio('sounds/fail.mp3'),
+    gameover: new Audio('sounds/gameover.mp3'),
+    youwon: new Audio('sounds/youwon.mp3'),
+    tick: new Audio('sounds/tick.mp3'),
+    intro: new Audio('sounds/intro.mp3')
+};
+
+// Arka plan müziği ayarları
+sounds.background.loop = true;
+sounds.background.volume = 0.3;
+
 document.addEventListener('DOMContentLoaded', function() {
     const usernameScreen = document.getElementById('username-screen');
     const gameScreen = document.getElementById('game-screen');
     const usernameInput = document.getElementById('username-input');
     const startGameBtn = document.getElementById('start-game-btn');
     const playerNameSpan = document.getElementById('player-name');
+    
+    // Ses kontrolü için buton oluştur
+    const soundToggleBtn = document.createElement('button');
+    soundToggleBtn.id = 'sound-toggle';
+    soundToggleBtn.innerHTML = '🔊';
+    soundToggleBtn.style.position = 'fixed';
+    soundToggleBtn.style.top = '10px';
+    soundToggleBtn.style.right = '10px';
+    soundToggleBtn.style.padding = '10px';
+    soundToggleBtn.style.fontSize = '20px';
+    soundToggleBtn.style.cursor = 'pointer';
+    soundToggleBtn.style.backgroundColor = '#fff';
+    soundToggleBtn.style.border = '2px solid #ccc';
+    soundToggleBtn.style.borderRadius = '50%';
+    document.body.appendChild(soundToggleBtn);
+    
+    // Ses açma/kapama kontrolü
+    let isSoundOn = true;
+    soundToggleBtn.addEventListener('click', function() {
+        isSoundOn = !isSoundOn;
+        soundToggleBtn.innerHTML = isSoundOn ? '🔊' : '🔇';
+        sounds.background.volume = isSoundOn ? 0.3 : 0;
+        Object.values(sounds).forEach(sound => {
+            if (sound !== sounds.background) {
+                sound.volume = isSoundOn ? 1 : 0;
+            }
+        });
+    });
     
     let username = '';
 
@@ -137,6 +180,8 @@ document.addEventListener('DOMContentLoaded', function() {
         currentStreak = 0;
         perfectGame = true;
         usedCities = [];
+        // Arka plan müziğini başlat
+        sounds.background.play();
         updateUI();
         nextQuestion();
     }
@@ -233,6 +278,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedAnswer = null;
 
     function selectAnswer(answer, button) {
+        // Seçim sesi efekti
+        const clickSound = new Audio('sounds/click.mp3');
+        clickSound.volume = isSoundOn ? 0.5 : 0;
+        clickSound.play();
+
         document.querySelectorAll('.option-btn').forEach(btn => {
             btn.classList.remove('selected-option');
         });
@@ -274,8 +324,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const resultDiv = document.getElementById('result');
         
         if (selectedAnswer === currentCity.name) {
-            if (successSound) successSound.play();
-            resultDiv.style.color = 'green';
+            if (sounds.correct) {
+                sounds.correct.currentTime = 0;
+                sounds.correct.play();
+            }
+            resultDiv.style.color = '#10b981';
             selectedButton.classList.add('correct');
             
             currentStreak++;
@@ -296,7 +349,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             resultDiv.textContent = `Doğru! +${currentPoints} puan! +${timeBonus} süre bonusu! ${streakMsg}`;
         } else {
-            if (failSound) failSound.play();
+            if (sounds.wrong) {
+                sounds.wrong.currentTime = 0;
+                sounds.wrong.play();
+            }
             resultDiv.textContent = `Yanlış! Doğru cevap: ${currentCity.name}`;
             resultDiv.style.color = 'red';
             selectedButton.classList.add('wrong');
@@ -323,6 +379,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function endGame(completed) {
         clearInterval(timerInterval);
+        // Arka plan müziğini durdur
+        sounds.background.pause();
+        sounds.background.currentTime = 0;
+        
+        // Oyun sonu müziğini çal
+        if (score >= 100) {
+            sounds.youwon.volume = isSoundOn ? 1 : 0;
+            sounds.youwon.play();
+        } else {
+            sounds.gameover.volume = isSoundOn ? 1 : 0;
+            sounds.gameover.play();
+        }
+        
         const resultDiv = document.getElementById('result');
         const celebrationContainer = document.getElementById('celebration-container');
         const finalScoreMessage = document.getElementById('final-score-message');
@@ -441,6 +510,11 @@ document.addEventListener('DOMContentLoaded', function() {
         clearInterval(timerInterval); // Önceki timer'ı temizle
         timeLeft = 15;
         updateTimerDisplay();
+        
+        // Tick sesi çal
+        if (isSoundOn) {
+            sounds.tick.play();
+        }
         
         timerInterval = setInterval(() => {
             timeLeft--;

@@ -6,8 +6,9 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f8fafc;
+    background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
     min-height: 100vh;
+    color: #1e293b;
 }
 
 .container {
@@ -15,6 +16,11 @@ body {
     margin: 0 auto;
     padding: 20px;
     text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    margin-top: 2rem;
 }
 
 h1 {
@@ -181,22 +187,24 @@ path.selected {
 }
 
 .option-btn {
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-size: 16px;
     border: none;
-    border-radius: 8px;
-    background-color: #f8f9fa;
-    color: #495057;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1e293b;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 1px solid #e9ecef;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
 .option-btn:hover {
-    background-color: #e9ecef;
+    background: rgba(255, 255, 255, 1);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .option-btn:disabled {
@@ -207,16 +215,18 @@ path.selected {
 
 /* Doğru cevap için yeşil ton */
 .correct {
-    background-color: #2ecc71 !important;
+    background: linear-gradient(135deg, #34d399 0%, #10b981 100%) !important;
     color: white !important;
     animation: pulse 0.5s ease;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 /* Yanlış cevap için kırmızı ton */
 .wrong {
-    background-color: #e74c3c !important;
+    background: linear-gradient(135deg, #f87171 0%, #ef4444 100%) !important;
     color: white !important;
     animation: pulse 0.5s ease;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
 #next-btn, #restart-btn {
