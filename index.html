@@ -40,6 +40,12 @@
                         <p class="text-sm text-gray-600">Puan</p>
                         <p class="font-semibold text-indigo-900" id="score">0</p>
                     </div>
+                    <div id="score-board">
+                        <div class="bg-indigo-50 p-3 rounded-lg">
+                            <p class="text-sm text-gray-600">En Yüksek Skor</p>
+                            <p class="font-semibold text-indigo-900" id="high-score">0</p>
+                        </div>
+                    </div>
                 </div>
          <div class="game-area">
                <div id="map-container">
@@ -393,6 +399,13 @@
          <button id="restart-btn" style="display: none;">Yeniden Başla</button>
          </div>
     </div>
+    <!-- Ses efektleri -->
+    <audio id="successSound">
+        <source src="src/assets/sounds/success.svg" type="audio/mpeg">
+    </audio>
+    <audio id="failSound">
+        <source src="src/assets/sounds/fail.svg" type="audio/mpeg">
+    </audio>
     <script src="script.js"></script>
 </body>
 </html>

@@ -244,11 +244,26 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.confirm-btn').style.display = 'block';
     }
 
-    const sounds = {
-        correct: new Audio('correct.mp3'),
-        wrong: new Audio('wrong.mp3'),
-        click: new Audio('click.mp3')
-    };
+    // Ses efektleri için SVG elementlerini yükle
+    const successSound = document.querySelector('#successSound');
+    const failSound = document.querySelector('#failSound');
+
+    // LocalStorage'dan en yüksek skoru al
+    let highScore = localStorage.getItem('highScore') || 0;
+    highScore = parseInt(highScore);
+
+    // Skor tablosunu güncelle
+    function updateScoreBoard() {
+        const scoreBoard = document.getElementById('score-board');
+        if (scoreBoard) {
+            scoreBoard.innerHTML = `
+                <div class="bg-indigo-50 p-3 rounded-lg">
+                    <p class="text-sm text-gray-600">En Yüksek Skor</p>
+                    <p class="font-semibold text-indigo-900" id="high-score">${highScore}</p>
+                </div>
+            `;
+        }
+    }
 
     function checkAnswer() {
         if (!selectedAnswer) return;
@@ -259,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const resultDiv = document.getElementById('result');
         
         if (selectedAnswer === currentCity.name) {
-            sounds.correct.play();
+            if (successSound) successSound.play();
             resultDiv.style.color = 'green';
             selectedButton.classList.add('correct');
             
@@ -268,13 +283,20 @@ document.addEventListener('DOMContentLoaded', function() {
             let currentPoints = 10 + Math.floor((currentStreak - 1) / 5);
             score += currentPoints + timeBonus;
             
+            // En yüksek skoru güncelle
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('highScore', highScore);
+                updateScoreBoard();
+            }
+            
             let streakMsg = currentStreak % 5 === 0 ? 
                 `\n🎯 ${currentStreak}. doğru! Puanlar artık ${currentPoints + 1} olacak!` : 
                 `(${currentStreak} seri)`;
             
             resultDiv.textContent = `Doğru! +${currentPoints} puan! +${timeBonus} süre bonusu! ${streakMsg}`;
         } else {
-            sounds.wrong.play();
+            if (failSound) failSound.play();
             resultDiv.textContent = `Yanlış! Doğru cevap: ${currentCity.name}`;
             resultDiv.style.color = 'red';
             selectedButton.classList.add('wrong');
@@ -296,6 +318,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateUI() {
         document.getElementById('lives').textContent = lives;
         document.getElementById('score').textContent = score;
+        updateScoreBoard();
     }
 
     function endGame(completed) {
@@ -456,4 +479,4 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('next-btn').style.display = 'block';
         }
     }
-}); 
+});
