@@ -1,4 +1,3 @@
-//Mainpage ekliyorum    
 // Ses efektleri için değişkenler
 const sounds = {
     background: new Audio('sounds/background.mp3'),
@@ -21,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const startGameBtn = document.getElementById('start-game-btn');
     const playerNameSpan = document.getElementById('player-name');
     
-    // Ses kontrolü için buton oluştur
+    // Ses kontrolü için buton
     const soundToggleBtn = document.createElement('button');
     soundToggleBtn.id = 'sound-toggle';
     soundToggleBtn.innerHTML = '🔊';
@@ -36,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     soundToggleBtn.style.borderRadius = '50%';
     document.body.appendChild(soundToggleBtn);
     
-    // Ses açma/kapama kontrolü
+    // Ses açma - kapama kontrolü
     let isSoundOn = true;
     soundToggleBtn.addEventListener('click', function() {
         isSoundOn = !isSoundOn;
@@ -51,16 +50,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let username = '';
 
-    // Username input validation
     usernameInput.addEventListener('input', function() {
         const isValid = this.value.trim().length >= 3;
         startGameBtn.disabled = !isValid;
         
-        // Remove special characters and limit length
         this.value = this.value.replace(/[^a-zA-Z0-9ğüşıöçĞÜŞİÖÇ ]/g, '').slice(0, 20);
     });
 
-    // Start game button click handler
     startGameBtn.addEventListener('click', function() {
         username = usernameInput.value.trim();
         if (username.length >= 3) {
@@ -71,12 +67,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Enter key handler for username input
     usernameInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter' && !startGameBtn.disabled) {
             startGameBtn.click();
         }
     });
+    
 //Mainpage ekliyorum        
     const cities = [
         { name: 'Adana', id: 'TR-01', lat: 37.0000, lng: 35.3213 },
