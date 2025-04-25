@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "findcities",
-    "public": "public",
+    "public": ".",
     "ignore": [
       "firebase.json",
       "**/.*",
