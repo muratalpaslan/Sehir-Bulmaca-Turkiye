@@ -13,6 +13,12 @@ const sounds = {
 sounds.background.loop = true;
 sounds.background.volume = 0.3;
 
+// Seslerin otomatik yüklenmesini engellemek için
+Object.values(sounds).forEach(sound => {
+    sound.preload = 'none'; // Seslerin otomatik yüklenmesini engelle
+    sound.autoplay = false; // Otomatik çalmayı devre dışı bırak
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const usernameScreen = document.getElementById('username-screen');
     const gameScreen = document.getElementById('game-screen');
@@ -206,7 +212,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         createOptions();
-        document.getElementById('next-btn').style.display = 'none';
+        const nextBtn = document.getElementById('next-btn');
+        nextBtn.classList.add('hidden');
+        nextBtn.classList.remove('visible');
+        
         document.getElementById('result').textContent = '';
         document.getElementById('timer').style.color = ''; // Timer rengini sıfırla
         enableOptions();
@@ -268,8 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const confirmButton = document.createElement('button');
         confirmButton.textContent = 'Onayla';
-        confirmButton.className = 'confirm-btn';
-        confirmButton.style.display = 'none';
+        confirmButton.className = 'confirm-btn hidden';
         confirmButton.onclick = () => checkAnswer();
         optionsContainer.appendChild(confirmButton);
     }
@@ -291,7 +299,8 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedButton = button;
         selectedAnswer = answer;
         
-        document.querySelector('.confirm-btn').style.display = 'block';
+        document.querySelector('.confirm-btn').classList.remove('hidden');
+        document.querySelector('.confirm-btn').classList.add('visible');
     }
 
     // Ses efektleri için SVG elementlerini yükle
@@ -371,12 +380,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         updateUI();
-        document.querySelector('.confirm-btn').style.display = 'none';
-
+        const confirmBtn = document.querySelector('.confirm-btn');
+        confirmBtn.classList.add('hidden');
+        confirmBtn.classList.remove('visible');
+    
         if (lives === 0) {
             endGame(false);
         } else {
-            document.getElementById('next-btn').style.display = 'block';
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.classList.remove('hidden');
+            nextBtn.classList.add('visible');
         }
     }
 
@@ -447,8 +460,13 @@ document.addEventListener('DOMContentLoaded', function() {
         resultDiv.textContent = finalMessage;
         resultDiv.style.color = completed ? 'green' : 'red';
         
-        document.getElementById('next-btn').style.display = 'none';
-        document.getElementById('restart-btn').style.display = 'block';
+        const nextBtn = document.getElementById('next-btn');
+        nextBtn.classList.add('hidden');
+        nextBtn.classList.remove('visible');
+        
+        const restartBtn = document.getElementById('restart-btn');
+        restartBtn.classList.remove('hidden');
+        restartBtn.classList.add('visible');
     }
 
     function disableOptions() {
@@ -592,7 +610,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (lives === 0) {
             endGame(false);
         } else {
-            document.getElementById('next-btn').style.display = 'block';
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.classList.remove('hidden');
+            nextBtn.classList.add('visible');
         }
     }
 });

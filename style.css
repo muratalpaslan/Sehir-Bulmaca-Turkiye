@@ -14,8 +14,22 @@ body {
     margin-top: 2rem;
 }
 #game-screen {
-    padding: 1.5rem 2rem;
+    padding: 1rem 2rem;
 }  
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+  
+.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
 
 h1 {
     color: #1e293b;
@@ -107,7 +121,7 @@ h1 {
 
 .game-area {
     background-color: white;
-    padding: 30px 15px 15px;
+    padding: 15px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     max-width: 1000px;
@@ -118,7 +132,7 @@ h1 {
     position: relative;
     width: 100%;
     max-width: 800px;
-    margin: 0 auto 30px;
+    margin: 0 auto -2rem;
     aspect-ratio: 2/1;
     display: flex;
     justify-content: center;
@@ -142,7 +156,7 @@ h1 {
 svg {
     width: 100%;
     height: auto;
-    min-height: 400px;
+    min-height: 350px;
     margin: 20px auto;
 }
 
@@ -304,7 +318,8 @@ path.selected {
 .option-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: #f8fafc;
+    background-color: #fbbf24;
+    color: #ffffff;
 }
 
 .option-btn:disabled {
@@ -414,9 +429,6 @@ path.wrong {
 }
 
 @media (max-width: 768px) {
-    .container {
-        padding: 10px;
-    }
     
     #map-container {
         aspect-ratio: 3/2;
@@ -450,8 +462,119 @@ path.wrong {
     #map-container {
         max-width: 700px;
     }
+}
 
-    .container {
-        padding: 15px;
+/* Google Giriş Butonu Stilleri */
+#google-login-btn {
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+}
+
+#google-login-btn:hover {
+    background-color: #f8fafc;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+#google-login-btn:active {
+    transform: translateY(0);
+}
+
+#user-avatar {
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+#user-avatar:hover {
+    border-color: #6366f1;
+    transform: scale(1.05);
+}
+
+#logout-btn {
+    transition: all 0.2s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+}
+
+#logout-btn:hover {
+    background-color: #fee2e2;
+}
+
+/* Oyun İstatistikleri Kartları */
+.bg-indigo-50 {
+    transition: all 0.3s ease;
+}
+
+.bg-indigo-50:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#game-screen {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@media (max-width: 640px) {
+    .grid-cols-1 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    #user-avatar {
+        width: 2rem;
+        height: 2rem;
+    }
+    
+    .text-3xl {
+        font-size: 1.5rem;
+    }
+}
+
+.loading-spinner {
+    border: 3px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 3px solid #6366f1;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #1f2937;
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
     }
 }
