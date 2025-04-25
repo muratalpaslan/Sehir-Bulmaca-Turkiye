@@ -4,7 +4,7 @@ import { collection, addDoc, query, orderBy, limit, getDocs } from 'firebase/fir
 import { User } from 'firebase/auth';
 import confetti from 'canvas-confetti';
 
-// Ses dosyalarını içe aktarıyoruz
+
 import backgroundMusic from '../assets/sounds/background.mp3';
 import gameOverSound from '../assets/sounds/gameover.mp3';
 
@@ -27,14 +27,14 @@ export const Game: React.FC<GameProps> = ({ user }) => {
   const [hints, setHints] = useState(2);
   const [timeBonus, setTimeBonus] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(60); // 60 saniyelik oyun süresi
+  const [timeLeft, setTimeLeft] = useState(60);
   const backgroundMusicRef = useRef<HTMLAudioElement | null>(null);
   const gameOverSoundRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     fetchLeaderboard();
     
-    // Arka plan müziğini başlat
+ 
     backgroundMusicRef.current = new Audio(backgroundMusic);
     gameOverSoundRef.current = new Audio(gameOverSound);
     backgroundMusicRef.current.loop = true;
@@ -52,7 +52,6 @@ export const Game: React.FC<GameProps> = ({ user }) => {
     }, 1000);
 
     return () => {
-      // Komponent kaldırıldığında müziği ve zamanlayıcıyı durdur
       clearInterval(timer);
       if (backgroundMusicRef.current) {
         backgroundMusicRef.current.pause();
@@ -62,7 +61,6 @@ export const Game: React.FC<GameProps> = ({ user }) => {
   }, []);
 
   useEffect(() => {
-    // Oyun bittiğinde müziği durdur
     if (isGameOver && backgroundMusicRef.current) {
       backgroundMusicRef.current.pause();
     }
@@ -141,6 +139,18 @@ export const Game: React.FC<GameProps> = ({ user }) => {
     });
   };
 
+  const handleOptionClick = (option: string) => {
+    if (option === currentCity) {
+      setScore(score + 10);
+      celebrate();
+    } else {
+      setLives(lives - 1);
+      if (lives <= 1) {
+        endGame();
+      }
+    }
+  };
+
   return (
     <div className="game-container">
       {isGameOver ? (
@@ -153,35 +163,67 @@ export const Game: React.FC<GameProps> = ({ user }) => {
         </div>
       ) : (
         <>
-          <div className="game-info">
-        <span>Skor: {score}</span>
-        <span>Kalan Can: {lives}</span>
-        <span>İpucu: {hints}</span>
-        <span>Kalan Süre: {timeLeft}s</span>
-      </div>
+          <div className="game-stats">
+            <div className="stat-box">
+              <div className="stat-label">Oyuncu</div>
+              <div className="stat-value">{user?.displayName || 'Anonim'}</div>
+            </div>
+            <div className="stat-box">
+              <div className="stat-label">Kalan Hak</div>
+              <div className="stat-value">{lives}</div>
+            </div>
+            <div className="stat-box">
+              <div className="stat-label">Süre</div>
+              <div className="stat-value">{timeLeft}</div>
+            </div>
+            <div className="stat-box">
+              <div className="stat-label">Puan</div>
+              <div className="stat-value">{score}</div>
+            </div>
+            <div className="stat-box">
+              <div className="stat-label">En Yüksek Skor</div>
+              <div className="stat-value">
+                {Math.max(...leaderboard.map(entry => entry.score), 0)}
+              </div>
+            </div>
+          </div>
 
-      <div className="game-controls">
-        <button onClick={useHint} disabled={hints === 0} className="hint-btn">
-          50/50 İpucu
-        </button>
-        <button onClick={addTimeBonus} className="time-bonus-btn">
-          +10 Saniye
-        </button>
-        <button onClick={shareScore} className="share-btn">
-          Skoru Paylaş
-        </button>
-      </div>
+          <div className="game-controls">
+            <button onClick={useHint} disabled={hints === 0} className="hint-btn">
+              50/50 İpucu ({hints})
+            </button>
+            <button onClick={addTimeBonus} className="time-bonus-btn">
+              +10 Saniye
+            </button>
+            <button onClick={shareScore} className="share-btn">
+              Skoru Paylaş
+            </button>
+          </div>
 
-      <div className="leaderboard">
-        <h3>Lider Tablosu</h3>
-        <ul>
-          {leaderboard.map((entry, index) => (
-            <li key={index}>
-              {entry.username}: {entry.score} puan
-            </li>
-          ))}
-        </ul>
-      </div>
+          <div className="options-container">
+            {options.map((option, index) => (
+              <button 
+                key={index} 
+                onClick={() => handleOptionClick(option)}
+                className="option-btn"
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+
+          <div className="leaderboard">
+            <h3>Lider Tablosu</h3>
+            <ul>
+              {leaderboard.map((entry, index) => (
+                <li key={index}>
+                  {entry.username}: {entry.score} puan
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      )}
     </div>
   );
 };

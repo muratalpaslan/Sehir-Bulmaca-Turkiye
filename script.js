@@ -5,7 +5,7 @@ const sounds = {
     wrong: new Audio('sounds/fail.mp3'),
     gameover: new Audio('sounds/gameover.mp3'),
     youwon: new Audio('sounds/youwon.mp3'),
-    tick: new Audio('sounds/tick.mp3'),
+    click: new Audio('sounds/click.mp3'),
     intro: new Audio('sounds/intro.mp3')
 };
 
@@ -63,6 +63,10 @@ document.addEventListener('DOMContentLoaded', function() {
             usernameScreen.style.display = 'none';
             gameScreen.style.display = 'block';
             playerNameSpan.textContent = username;
+            
+            // Kullanıcı etkileşimi olduğunda arka plan müziğini çal
+            playSoundSafely(sounds.background);
+            
             initGame();
         }
     });
@@ -311,6 +315,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Güvenli ses çalma fonksiyonu
+    function playSoundSafely(sound) {
+        if (isSoundOn) {
+            sound.currentTime = 0;
+            const playPromise = sound.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Ses çalma hatası:", error);
+                    // Kullanıcı etkileşimi olmadan ses çalınamaz, bu normal bir durum
+                });
+            }
+        }
+    }
+
     function checkAnswer() {
         if (!selectedAnswer) return;
         
@@ -320,10 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const resultDiv = document.getElementById('result');
         
         if (selectedAnswer === currentCity.name) {
-            if (sounds.correct) {
-                sounds.correct.currentTime = 0;
-                sounds.correct.play();
-            }
+            playSoundSafely(sounds.correct);
             resultDiv.style.color = '#10b981';
             selectedButton.classList.add('correct');
             
@@ -345,10 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             resultDiv.textContent = `Doğru! +${currentPoints} puan! +${timeBonus} süre bonusu! ${streakMsg}`;
         } else {
-            if (sounds.wrong) {
-                sounds.wrong.currentTime = 0;
-                sounds.wrong.play();
-            }
+            playSoundSafely(sounds.wrong);
             resultDiv.textContent = `Yanlış! Doğru cevap: ${currentCity.name}`;
             resultDiv.style.color = 'red';
             selectedButton.classList.add('wrong');
@@ -504,28 +517,61 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function startTimer() {
         clearInterval(timerInterval); // Önceki timer'ı temizle
-        timeLeft = 15;
-        updateTimerDisplay();
+        timeLeft = 15; // Süreyi sıfırla
         
-        // Tick sesi çal
-        if (isSoundOn) {
-            sounds.tick.play();
-        }
+        const timerElement = document.getElementById('timer');
+        timerElement.textContent = timeLeft;
         
         timerInterval = setInterval(() => {
             timeLeft--;
-            updateTimerDisplay();
+            timerElement.textContent = timeLeft;
             
+            // Son 5 saniyede timer'ı kırmızı yap
             if (timeLeft <= 5) {
-                document.getElementById('timer').style.color = 'red';
+                timerElement.style.color = 'red';
+                // Tick sesi çal
+                if (isSoundOn) {
+                    sounds.click.currentTime = 0;
+                    sounds.click.play();
+                }
             }
             
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
-                timeExpired();
+                // Süre bittiğinde müziği durdur
+                sounds.background.pause();
+                sounds.background.currentTime = 0;
+                
+                // Yanlış cevap sesi çal
+                if (isSoundOn) {
+                    sounds.wrong.currentTime = 0;
+                    sounds.wrong.play();
+                }
+                
+                disableOptions();
+                document.getElementById('result').textContent = 'Süre doldu! Doğru cevap: ' + currentCity.name;
+                document.getElementById('result').style.color = 'red';
+                lives--;
+                updateUI();
+                
+                if (lives === 0) {
+                    endGame(false);
+                } else {
+                    document.getElementById('next-btn').style.display = 'block';
+                }
             }
         }, 1000);
     }
+
+    // Sonraki soruya geçince müziği yeniden başlat
+    document.getElementById('next-btn').addEventListener('click', function() {
+        // Arka plan müziğini yeniden başlat
+        if (isSoundOn && sounds.background.paused) {
+            sounds.background.currentTime = 0;
+            sounds.background.play();
+        }
+        nextQuestion();
+    });
 
     function updateTimerDisplay() {
         document.getElementById('timer').textContent = timeLeft;

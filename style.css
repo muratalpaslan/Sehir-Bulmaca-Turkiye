@@ -10,27 +10,21 @@ body {
     min-height: 100vh;
     color: #1e293b;
 }
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
+#username-screen {
     margin-top: 2rem;
 }
+#game-screen {
+    padding: 1.5rem 2rem;
+}  
 
 h1 {
     color: #1e293b;
-    margin-bottom: 1.5rem;
+    margin: 0.5rem 0 1.5rem;
     font-weight: 600;
     letter-spacing: -0.025em;
     line-height: 1.2;
 }
-/* mainpage oluşturuyorum */
+
 .username-screen {
     display: flex;
     justify-content: center;
@@ -94,6 +88,7 @@ h1 {
     cursor: not-allowed;
     transform: none;
 }
+
 .game-info {
     display: flex;
     justify-content: space-around;
@@ -112,7 +107,7 @@ h1 {
 
 .game-area {
     background-color: white;
-    padding: 30px;
+    padding: 30px 15px 15px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     max-width: 1000px;
@@ -144,7 +139,6 @@ h1 {
     height: auto;
 }
 
-/* SVG içindeki path'ler için stil */
 svg {
     width: 100%;
     height: auto;
@@ -166,7 +160,7 @@ path:hover {
 }
 
 path.selected {
-    fill: #3498db !important; /* Modern mavi */
+    fill: #3498db !important;
 }
 
 #city-marker {
@@ -213,7 +207,6 @@ path.selected {
     cursor: not-allowed;
 }
 
-/* Doğru cevap için yeşil ton */
 .correct {
     background: linear-gradient(135deg, #34d399 0%, #10b981 100%) !important;
     color: white !important;
@@ -221,7 +214,6 @@ path.selected {
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
-/* Yanlış cevap için kırmızı ton */
 .wrong {
     background: linear-gradient(135deg, #f87171 0%, #ef4444 100%) !important;
     color: white !important;
@@ -238,7 +230,7 @@ path.selected {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin: 15px;
+    margin: 0 15px;
 }
 
 #next-btn:hover, #restart-btn:hover {
@@ -248,7 +240,7 @@ path.selected {
 }
 
 .result {
-    margin: 25px 0;
+    margin: 10px 15px;
     font-size: 18px;
     font-weight: 500;
     color: #2c3e50;
@@ -286,7 +278,6 @@ path.selected {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-top: 20px;
 }
 
 .options-grid {
@@ -296,13 +287,12 @@ path.selected {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 0 1rem;
 }
 
 .option-btn {
     background-color: #ffffff;
     border: 1px solid #e2e8f0;
-    padding: 1rem;
     border-radius: 0.75rem;
     font-size: 1rem;
     font-weight: 500;
@@ -323,14 +313,12 @@ path.selected {
     transform: none;
 }
 
-/* Doğru/yanlış cevap animasyonu */
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
 
-/* Harita hover efekti */
 path {
     fill: #f5f5f5;
     stroke: #e0e0e0;
@@ -344,22 +332,28 @@ path:hover {
     filter: drop-shadow(0 3px 5px rgba(0,0,0,0.2));
 }
 
-/* Skor gösterimi için stil */
-.game-info {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    font-size: 18px;
-    font-weight: 500;
+path.active {
+    fill: #3498db !important;
 }
 
-.game-info span {
-    color: #3498db;
-    font-weight: bold;
-    padding: 5px 10px;
-    border-radius: 5px;
-    background: rgba(52, 152, 219, 0.1);
+path.correct {
+    fill: #2ecc71 !important;
 }
+
+path.wrong {
+    fill: #e74c3c !important;
+}
+
+#timer {
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+#timer.warning {
+    color: #e74c3c;
+    animation: pulse 1s infinite;
+}
+
 .celebration-container {
     position: fixed;
     top: 50%;
@@ -450,9 +444,8 @@ path:hover {
         padding: 8px 15px;
         font-size: 14px;
     }
-} 
+}
 
-/* Tablet için ek düzenlemeler */
 @media (min-width: 769px) and (max-width: 1024px) {
     #map-container {
         max-width: 700px;
@@ -461,36 +454,4 @@ path:hover {
     .container {
         padding: 15px;
     }
-}
-
-/* SVG içindeki path'ler için hover ve active durumları */
-path {
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-path:hover {
-    filter: brightness(0.95);
-}
-
-path.active {
-    fill: #3498db !important;
-}
-
-path.correct {
-    fill: #2ecc71 !important;
-}
-
-path.wrong {
-    fill: #e74c3c !important;
-}
-
-#timer {
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-#timer.warning {
-    color: #e74c3c;
-    animation: pulse 1s infinite;
 }
