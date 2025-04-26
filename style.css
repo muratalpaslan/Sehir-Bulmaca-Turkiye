@@ -195,7 +195,7 @@ path.selected {
 }
 
 .option-btn {
-    padding: 12px 24px;
+    padding: 10px 24px;
     font-size: 16px;
     border: none;
     border-radius: 12px;
@@ -236,7 +236,7 @@ path.selected {
 }
 
 #next-btn, #restart-btn {
-    padding: 12px 30px;
+    padding: 10px 30px;
     font-size: 16px;
     background-color: #3498db;
     color: white;
@@ -269,7 +269,7 @@ path.selected {
 }
 
 .confirm-btn {
-    padding: 12px 30px;
+    padding: 10px 30px;
     font-size: 16px;
     background-color: #2ecc71;
     color: white;

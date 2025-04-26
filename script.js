@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const scoreBoard = document.getElementById('score-board');
         if (scoreBoard) {
             scoreBoard.innerHTML = `
-                <div class="bg-indigo-50 p-3 rounded-lg">
+                <div class="bg-indigo-50 p-1 rounded-lg">
                     <p class="text-sm text-gray-600">En Yüksek Skor</p>
                     <p class="font-semibold text-indigo-900" id="high-score">${highScore}</p>
                 </div>
