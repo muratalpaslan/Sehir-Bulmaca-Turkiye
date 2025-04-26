@@ -25,36 +25,46 @@ document.addEventListener('DOMContentLoaded', function() {
     const usernameInput = document.getElementById('username-input');
     const startGameBtn = document.getElementById('start-game-btn');
     const playerNameSpan = document.getElementById('player-name');
-    
-    // Ses kontrolü için buton
-    const soundToggleBtn = document.createElement('button');
-    soundToggleBtn.id = 'sound-toggle';
-    soundToggleBtn.innerHTML = '🔊';
-    soundToggleBtn.style.position = 'fixed';
-    soundToggleBtn.style.top = '10px';
-    soundToggleBtn.style.right = '10px';
-    soundToggleBtn.style.padding = '10px';
-    soundToggleBtn.style.fontSize = '20px';
-    soundToggleBtn.style.cursor = 'pointer';
-    soundToggleBtn.style.backgroundColor = '#fff';
-    soundToggleBtn.style.border = '2px solid #ccc';
-    soundToggleBtn.style.borderRadius = '50%';
-    document.body.appendChild(soundToggleBtn);
-    
-    // Ses açma - kapama kontrolü
-    let isSoundOn = true;
-    soundToggleBtn.addEventListener('click', function() {
-        isSoundOn = !isSoundOn;
-        soundToggleBtn.innerHTML = isSoundOn ? '🔊' : '🔇';
-        sounds.background.volume = isSoundOn ? 0.3 : 0;
-        Object.values(sounds).forEach(sound => {
-            if (sound !== sounds.background) {
-                sound.volume = isSoundOn ? 1 : 0;
-            }
-        });
-    });
-    
-    let username = '';
+   
+     // Ses kontrolü için buton
+     const soundToggleBtn = document.createElement('button');
+     soundToggleBtn.id = 'sound-toggle';
+     soundToggleBtn.innerHTML = '🔊';
+     soundToggleBtn.style.position = 'fixed';
+     soundToggleBtn.style.top = '10px';
+     soundToggleBtn.style.right = '10px';
+     soundToggleBtn.style.padding = '10px';
+     soundToggleBtn.style.fontSize = '20px';
+     soundToggleBtn.style.cursor = 'pointer';
+     soundToggleBtn.style.backgroundColor = '#fff';
+     soundToggleBtn.style.border = '2px solid #ccc';
+     soundToggleBtn.style.borderRadius = '50%';
+     soundToggleBtn.style.zIndex = '1000'; // Üst katmanda görünmesi için z-index ekledim
+     document.body.appendChild(soundToggleBtn);
+     
+     // Ses açma - kapama kontrolü
+     let isSoundOn = true;
+     
+     // Ses durumunu değiştiren fonksiyon
+     function toggleSound() {
+         isSoundOn = !isSoundOn;
+         soundToggleBtn.innerHTML = isSoundOn ? '🔊' : '🔇';
+         sounds.background.volume = isSoundOn ? 0.3 : 0;
+         Object.values(sounds).forEach(sound => {
+             if (sound !== sounds.background) {
+                 sound.volume = isSoundOn ? 1 : 0;
+             }
+         });
+     }
+     
+     // Hem click hem de touchstart olaylarını dinle
+     soundToggleBtn.addEventListener('click', toggleSound);
+     soundToggleBtn.addEventListener('touchstart', function(e) {
+         e.preventDefault(); // Varsayılan dokunmatik davranışı engelle
+         toggleSound();
+     });
+     
+     let username = '';
 
     usernameInput.addEventListener('input', function() {
         const isValid = this.value.trim().length >= 3;
@@ -524,9 +534,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const svg = container.querySelector('svg');
         
         if (window.innerWidth <= 768) {
-            svg.setAttribute('viewBox', '25 0 750 500');
+            svg.setAttribute('viewBox', '25 -40 750 500');
         } else {
-            svg.setAttribute('viewBox', '25 0 750 400');
+            svg.setAttribute('viewBox', '25 -31 750 400');
         }
     }
 
