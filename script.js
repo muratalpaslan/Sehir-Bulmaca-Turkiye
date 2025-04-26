@@ -26,45 +26,54 @@ document.addEventListener('DOMContentLoaded', function() {
     const startGameBtn = document.getElementById('start-game-btn');
     const playerNameSpan = document.getElementById('player-name');
    
-     // Ses kontrolü için buton
-     const soundToggleBtn = document.createElement('button');
-     soundToggleBtn.id = 'sound-toggle';
-     soundToggleBtn.innerHTML = '🔊';
-     soundToggleBtn.style.position = 'fixed';
-     soundToggleBtn.style.top = '10px';
-     soundToggleBtn.style.right = '10px';
-     soundToggleBtn.style.padding = '10px';
-     soundToggleBtn.style.fontSize = '20px';
-     soundToggleBtn.style.cursor = 'pointer';
-     soundToggleBtn.style.backgroundColor = '#fff';
-     soundToggleBtn.style.border = '2px solid #ccc';
-     soundToggleBtn.style.borderRadius = '50%';
-     soundToggleBtn.style.zIndex = '1000'; // Üst katmanda görünmesi için z-index ekledim
-     document.body.appendChild(soundToggleBtn);
-     
-     // Ses açma - kapama kontrolü
-     let isSoundOn = true;
-     
-     // Ses durumunu değiştiren fonksiyon
-     function toggleSound() {
-         isSoundOn = !isSoundOn;
-         soundToggleBtn.innerHTML = isSoundOn ? '🔊' : '🔇';
-         sounds.background.volume = isSoundOn ? 0.3 : 0;
-         Object.values(sounds).forEach(sound => {
-             if (sound !== sounds.background) {
-                 sound.volume = isSoundOn ? 1 : 0;
-             }
-         });
-     }
-     
-     // Hem click hem de touchstart olaylarını dinle
-     soundToggleBtn.addEventListener('click', toggleSound);
-     soundToggleBtn.addEventListener('touchstart', function(e) {
-         e.preventDefault(); // Varsayılan dokunmatik davranışı engelle
-         toggleSound();
-     });
-     
-     let username = '';
+    // Ses kontrolü için buton
+    const soundToggleBtn = document.createElement('button');
+    soundToggleBtn.id = 'sound-toggle';
+    soundToggleBtn.innerHTML = '🔊';
+    soundToggleBtn.style.position = 'fixed';
+    soundToggleBtn.style.top = '10px';
+    soundToggleBtn.style.right = '10px';
+    soundToggleBtn.style.padding = '10px';
+    soundToggleBtn.style.fontSize = '20px';
+    soundToggleBtn.style.cursor = 'pointer';
+    soundToggleBtn.style.backgroundColor = '#fff';
+    soundToggleBtn.style.border = '2px solid #ccc';
+    soundToggleBtn.style.borderRadius = '50%';
+    soundToggleBtn.style.zIndex = '1000';
+    document.body.appendChild(soundToggleBtn);
+    
+    // Ses açma - kapama kontrolü
+    let isSoundOn = true;
+    
+    // Ses durumunu değiştiren fonksiyon
+    function toggleSound(e) {
+        if (e) e.preventDefault(); // Dokunmatik olaylarda varsayılan davranışı engelle
+        isSoundOn = !isSoundOn;
+        soundToggleBtn.innerHTML = isSoundOn ? '🔊' : '🔇';
+        
+        // Arka plan müziğini yönet
+        if (isSoundOn) {
+            sounds.background.volume = 0.3;
+            playSoundSafely(sounds.background);
+        } else {
+            sounds.background.pause();
+            sounds.background.currentTime = 0;
+            sounds.background.volume = 0;
+        }
+        
+        // Diğer seslerin ses seviyesini güncelle
+        Object.values(sounds).forEach(sound => {
+            if (sound !== sounds.background) {
+                sound.volume = isSoundOn ? 1 : 0;
+            }
+        });
+    }
+    
+    // Hem click hem touchstart olaylarını dinle, çakışmayı önlemek için passive: false
+    soundToggleBtn.addEventListener('click', toggleSound, { passive: false });
+    soundToggleBtn.addEventListener('touchstart', toggleSound, { passive: false });
+    
+    let username = '';
 
     usernameInput.addEventListener('input', function() {
         const isValid = this.value.trim().length >= 3;
@@ -93,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-//Mainpage ekliyorum        
     const cities = [
         { name: 'Adana', id: 'TR-01', lat: 37.0000, lng: 35.3213 },
         { name: 'Adıyaman', id: 'TR-02', lat: 37.7648, lng: 38.2786 },
@@ -197,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
         perfectGame = true;
         usedCities = [];
         // Arka plan müziğini başlat
-        sounds.background.play();
+        playSoundSafely(sounds.background);
         updateUI();
         nextQuestion();
     }
@@ -299,7 +307,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Seçim sesi efekti
         const clickSound = new Audio('sounds/click.mp3');
         clickSound.volume = isSoundOn ? 0.5 : 0;
-        clickSound.play();
+        playSoundSafely(clickSound);
 
         document.querySelectorAll('.option-btn').forEach(btn => {
             btn.classList.remove('selected-option');
@@ -336,16 +344,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Güvenli ses çalma fonksiyonu
     function playSoundSafely(sound) {
-        if (isSoundOn) {
-            sound.currentTime = 0;
-            const playPromise = sound.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Ses çalma hatası:", error);
-                    // Kullanıcı etkileşimi olmadan ses çalınamaz, bu normal bir durum
-                });
-            }
+        if (!isSoundOn || !sound) return;
+        sound.currentTime = 0;
+        const playPromise = sound.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.error('Ses çalma hatası:', error);
+                // Mobil cihazlarda kullanıcı etkileşimi gerekebilir
+                if (error.name === 'NotAllowedError') {
+                    console.log('Kullanıcı etkileşimi gerekli, ses oynatma bekleniyor.');
+                }
+            });
         }
     }
 
@@ -417,11 +426,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Oyun sonu müziğini çal
         if (score >= 100) {
-            sounds.youwon.volume = isSoundOn ? 1 : 0;
-            sounds.youwon.play();
+            playSoundSafely(sounds.youwon);
         } else {
-            sounds.gameover.volume = isSoundOn ? 1 : 0;
-            sounds.gameover.play();
+            playSoundSafely(sounds.gameover);
         }
         
         const resultDiv = document.getElementById('result');
@@ -559,8 +566,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 timerElement.style.color = 'red';
                 // Tick sesi çal
                 if (isSoundOn) {
-                    sounds.click.currentTime = 0;
-                    sounds.click.play();
+                    playSoundSafely(sounds.click);
                 }
             }
             
@@ -571,10 +577,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 sounds.background.currentTime = 0;
                 
                 // Yanlış cevap sesi çal
-                if (isSoundOn) {
-                    sounds.wrong.currentTime = 0;
-                    sounds.wrong.play();
-                }
+                playSoundSafely(sounds.wrong);
                 
                 disableOptions();
                 document.getElementById('result').textContent = 'Süre doldu! Doğru cevap: ' + currentCity.name;
@@ -595,8 +598,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('next-btn').addEventListener('click', function() {
         // Arka plan müziğini yeniden başlat
         if (isSoundOn && sounds.background.paused) {
-            sounds.background.currentTime = 0;
-            sounds.background.play();
+            playSoundSafely(sounds.background);
         }
         nextQuestion();
     });
