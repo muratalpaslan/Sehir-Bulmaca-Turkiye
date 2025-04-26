@@ -541,7 +541,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const svg = container.querySelector('svg');
         
         if (window.innerWidth <= 768) {
-            svg.setAttribute('viewBox', '25 -40 750 500');
+            svg.setAttribute('viewBox', '20 -40 770 500');
         } else {
             svg.setAttribute('viewBox', '25 -31 750 400');
         }

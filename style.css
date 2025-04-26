@@ -539,6 +539,16 @@ path.wrong {
     .text-3xl {
         font-size: 1.5rem;
     }
+
+    #next-btn,
+    #restart-btn {
+        margin: 3px;
+        font-size: 14px;
+        padding: 8px 20px;
+    }  
+    .result {
+        font-size: 14px;
+    }
 }
 
 .loading-spinner {
